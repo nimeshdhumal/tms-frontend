@@ -5,7 +5,7 @@ export interface IUser {
     id: number;
     name: string;
     email: string;
-    user: UserRole;
+    role: UserRole;
     createdAt: string;
     updatedAt: string;
 }
@@ -23,7 +23,6 @@ export interface ISignUpInput {
 }
 
 /* Tasks */
-
 export type TaskStatus = 'todo' | 'in-progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
 export type SortOrder = 'asc' | 'desc';
@@ -51,25 +50,56 @@ export interface ICreateTaskInput {
 export interface IUpdateTaskInput extends Partial<ICreateTaskInput> { }
 
 /* Comments */
-
 export interface IComment {
-    id:number;
-    text:string;
-    taskId:number;
-    userId:number;
-    createdAt:string;
-    updatedAt:string;
+    id: number;
+    text: string;
+    taskId: number;
+    userId: number;
+    createdAt: string;
+    updatedAt: string;
 }
 
-export interface ICreateCommentInput{
-    text:string;
+export interface ICreateCommentInput {
+    text: string;
 }
 
 /* API Response Shapes */
+export interface IPagination {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+}
 
-export interface IPagination{
-    page:number;
-    limit:number;
-    total:number;
-    totalPages:number;
+export interface IPaginatedResponse<T> {
+    success: boolean;
+    data: {
+        data: T[];
+        meta: IPagination;
+    };
+}
+
+export interface ISingleResponse<T> {
+    success: boolean;
+    data: T;
+}
+
+/* Query Params */
+export interface ITaskQueryParams {
+    page?: number;
+    limit?: number;
+    sort?: string;
+    order?: SortOrder;
+    status?: TaskStatus | '';
+    search?: string;
+}
+
+/* Auth API Response */
+export interface IAuthResponse {
+    success: boolean;
+    message: string;
+    data: {
+        token: string;
+        user: IUser;
+    };
 }
