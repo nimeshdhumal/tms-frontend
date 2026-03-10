@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import Navbar from '@/components/layout/Navbar';
 
 interface IDashboardLayoutProps {
     readonly children: React.ReactNode;
@@ -33,8 +34,11 @@ export default function DashboardLayout({ children }: IDashboardLayoutProps) {
     }
 
     return (
-        <div className='min-h-screen bg-gray-50'>
-            {children}
+        <div className="min-h-screen bg-gray-50">
+            <Navbar />
+            <main className="mx-auto max-w-5xl py-6 px-4">
+                {children}
+            </main>
         </div>
     );
 }
